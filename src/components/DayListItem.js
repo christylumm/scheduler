@@ -5,13 +5,13 @@ import classnames from "classnames";
 export default function DayListItem(props) {
   const dayClass = classnames("day-list__item", {
     "day-list__item--selected": props.selected,
-    "day-list__item--full": props.spots == 0
+    "day-list__item--full": props.spots === 0
   });
 
   const formatSpots = (spots) => {
     let string = "";
-    if (spots == 0) return (string = "no spots remaining");
-    if (spots == 1) return (string = "1 spot remaining");
+    if (spots === 0) return (string = "no spots remaining");
+    if (spots === 1) return (string = "1 spot remaining");
     return (string = props.spots + " spots remaining");
   };
 
