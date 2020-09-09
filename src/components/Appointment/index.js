@@ -30,24 +30,25 @@ export default function Appointment(props) {
 
   // SAVE AN APPOINTMENT -------------------------------------
   const save = (name, interviewer) => {
-    transition(SAVING);
     const interview = {
       student: name,
       interviewer
     };
+    
+    transition(SAVING);
+    
     props.bookInterview(props.id, interview) 
-    .then(response => {
-      transition(SHOW);
-    })
+    .then(() => transition(SHOW))
+    .catch(error => transition(ERROR_SAVE, true));
   }
 
   // DELETE AN APPOINTMENT ----------------------------------
   const deleting = () => {
     transition(DELETING, true);
-    props.cancelInterview(props.id)
-    .then(() => {
-      transition(EMPTY);
-    })
+    props
+      .cancelInterview(props.id)
+      .then(() => transition(EMPTY))
+      .catch(error => transition(ERROR_DELETE, true));
   }
 
   // CONFIRM DELETE -----------------------------------------
@@ -117,6 +118,20 @@ export default function Appointment(props) {
           interviewers={props.interviewers}
           onSave={save}
           onCancel={back}
+        />
+      )}
+
+      {mode === ERROR_SAVE && (
+        <Error
+          message="Oops! There was an error in saving your appointment"
+          onClose={back}
+        />
+      )}
+
+      {mode === ERROR_DELETE && (
+        <Error
+          message="Oops! There was an error in deleting your appointment"
+          onClose={back}
         />
       )}
 
