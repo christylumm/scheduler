@@ -5,10 +5,12 @@ import InterviewerList from "components/InterviewerList";
 export default function Form(props) {
   const [name, setName] = useState(props.name || "");
   const [interviewer, setInterviewer] = useState(props.interviewer || null);
+  const [error, setError] = useState('');
 
   function reset() {
     setName("");
     setInterviewer(null);
+    setError("");
   };
 
   function cancel() {
@@ -16,7 +18,17 @@ export default function Form(props) {
     props.onCancel();
   };
 
-  function save() {
+  function validate() {
+    if (name === '') {
+      setError('Please input a student name');
+      return;
+    }
+
+    if (!interviewer) {
+      setError('Please select an interviewer');
+    }
+
+    setError('');
     props.onSave(name, interviewer);
   }
   
@@ -34,13 +46,14 @@ export default function Form(props) {
             This must be a controlled component
           */
         />
+        <section className="appointment__validation">{error}</section>
       </form>
       <InterviewerList interviewers={props.interviewers} value={interviewer} onChange={setInterviewer} />
     </section>
     <section className="appointment__card-right">
       <section className="appointment__actions">
         <Button onClick={cancel} danger>Cancel</Button>
-        <Button onClick={save} confirm>Save</Button>
+        <Button onClick={validate} confirm>Save</Button>
       </section>
     </section>
   </main>)
