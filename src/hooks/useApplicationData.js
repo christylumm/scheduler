@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 
 export default function useApplicationData(props) {
@@ -9,13 +9,22 @@ export default function useApplicationData(props) {
     interviewers: {}
   });
 
-  const daysPromise = axios.get("http://localhost:8001/api/days");
-  const appointmentsPromise = axios.get("http://localhost:8001/api/appointments");
-  const interviewersPromise = axios.get("http://localhost:8001/api/interviewers");
-
+  
   const setDay = day => setState({ ...state, day});
   
+  function updateSpots(count) {
+    for (const day of state.days) {
+      if (day.name === state.day) {
+        day.spots += count;
+      }
+    }
+  }
+  
   useEffect(() => {
+    const daysPromise = axios.get("http://localhost:8001/api/days");
+    const appointmentsPromise = axios.get("http://localhost:8001/api/appointments");
+    const interviewersPromise = axios.get("http://localhost:8001/api/interviewers");
+    
     Promise.all([
       daysPromise,
       appointmentsPromise,
@@ -49,6 +58,7 @@ export default function useApplicationData(props) {
     return axios 
       .put(`http://localhost:8001/api/appointments/${id}`, {interview})
       .then((response) => {
+        updateSpots(-1);
         setState({
           ...state,
           appointments
@@ -60,11 +70,13 @@ export default function useApplicationData(props) {
     return axios
       .delete(`http://localhost:8001/api/appointments/${id}`)
       .then(() => axios.get("http://localhost:8001/api/days"))
-      .then((response) => 
+      .then((response) => {
+        updateSpots(+1) 
         setState(prev => ({
           ...prev,
           days: response.data
-        })));
+        }));
+      });
   };
   
   return {

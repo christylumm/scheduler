@@ -28,7 +28,7 @@ export function getInterviewersForDay (state, day) {
     return selectedDay.name === day
   })
 
-  if (filteredDays.length == 0) {
+  if (filteredDays.length === 0) {
     return [];
   }
 
