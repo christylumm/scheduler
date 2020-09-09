@@ -44,7 +44,7 @@ export default function Application(props) {
     });
   }, []);
 
-  function bookInterview(id, interview) {
+  const bookInterview = (id, interview) => {
     console.log(id, interview);
 
     const appointment = {
@@ -66,6 +66,19 @@ export default function Application(props) {
         });
       });
   };
+
+  const cancelInterview = (id) => {
+    return axios
+      .delete(`http://localhost:8001/api/appointments/${id}`)
+      .then(() => axios.get("http://localhost:8001/api/days"))
+      .then((response) => 
+        setState(prev => ({
+          ...prev,
+          days: response.data
+        })));
+  }; 
+
+
   
   const appointmentsArr = getAppointmentsForDay(state, state.day);
 
@@ -81,6 +94,7 @@ export default function Application(props) {
         interview={interview}
         interviewers={interviewers}
         bookInterview={bookInterview}
+        cancelInterview={cancelInterview}
       />
     );
   });
