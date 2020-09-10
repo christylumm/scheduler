@@ -20,7 +20,7 @@ export default function Form(props) {
 
   function validate() {
     if (name === '') {
-      setError('Please input a student name');
+      setError('Student name cannot be blank');
       return;
     }
 
@@ -42,9 +42,11 @@ export default function Form(props) {
           onChange={(event) => setName(event.target.value)}
           type="text"
           placeholder="Enter Student Name"
-          /*
-            This must be a controlled component
-          */
+          value={name}
+          onChange={event => {
+            setName(event.target.value);
+          }}
+          data-testid="student-name-input"
         />
         <section className="appointment__validation">{error}</section>
       </form>
