@@ -6,6 +6,8 @@ Using the latest tools and techniques, I built and tested a React application th
 This project was completed as part of Week 7 and 8 of the Web Development Bootcamp at [Lighthouse Labs](https://www.lighthouselabs.ca/).
 
 ## Project Screenshots
+![home page scheduler list, desktop](https://github.com/christylumm/scheduler/blob/master/docs/mockup-1.png "Scheduler Home Page - List")
+![create appointment, phone](https://github.com/christylumm/scheduler/blob/master/docs/mockup-2.png "Create Appointment Form")
 
 
 ## Setup
