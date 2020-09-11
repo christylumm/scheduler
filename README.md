@@ -1,5 +1,13 @@
 # Interview Scheduler
 
+## Introduction
+Using the latest tools and techniques, I built and tested a React application that allows users to book and cancel interviews. I combined a concise API with a WebSocket server to build a realtime experience.
+
+This project was completed as part of Week 7 and 8 of the Web Development Bootcamp at [Lighthouse Labs](https://www.lighthouselabs.ca/).
+
+## Project Screenshots
+
+
 ## Setup
 
 Install dependencies with `npm install`.
@@ -21,3 +29,6 @@ npm test
 ```sh
 npm run storybook
 ```
+## Resources
+- [Macbook Mockup](https://www.anthonyboyd.graphics/mockups/modern-macbook-pro-and-iphone-x-on-desk-mockup/)
+- [Phone Mockup](https://noblecreative.co/iphone-11-free-mockups-wallpapers/)
